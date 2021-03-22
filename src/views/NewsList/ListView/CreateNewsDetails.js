@@ -57,11 +57,9 @@ const NewsDetails = ({ className, create, set,...rest }) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault()
-    if(values.image64!==""){
+    
     create(values)
-    }else{
-    alert("Please provide the image")
-    }
+    
     
    };
 
@@ -106,6 +104,7 @@ const NewsDetails = ({ className, create, set,...rest }) => {
                 fullWidth
                 label="Text"
                 name="text"
+                helperText="To style the text use **bold** or _italic_"
                 onChange={handleChange}
                 required
                 variant="outlined"

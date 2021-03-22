@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { useMutation,useQuery, gql } from '@apollo/client';
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import {
   Box,
   Button,
@@ -24,6 +28,21 @@ const useStyles = makeStyles(() => ({
 const MemberDetails = ({ className, details,edit,set, ...rest }) => {
   const classes = useStyles();
   const [values, setValues] = useState(details);
+  var array=details.linknames.split(',')
+  var array2=details.links.split(',')
+  for(var c=0;c<array.length;c++){
+    array[c]={key:c,linknames:array[c],links:array2[c]}
+  }
+  const [linksNumber, setLinksNumber] = useState(array.length-1)
+  const [render, setRender] = useState(0)
+  const [links, setLinks] = useState(
+    {
+      linknames:"",
+      links:"",
+      
+    }
+  );
+  const [linksArray, setLinksArray] = useState(array[0].links!==""?array:[]);
   const toBase64 = file => new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -45,10 +64,55 @@ const MemberDetails = ({ className, details,edit,set, ...rest }) => {
       }
     )
    };
+   const handleChangeLink = (event) => {
+    setLinks({
+      ...links,
+      [event.target.name]: event.target.value
+    });
+  };
+  const handleAddLink = () => {
+    var stringLinks=links.links.split('')
+    var stringLinknames=links.linknames.split('')
+    if(stringLinknames.indexOf(',')==-1 && stringLinks.indexOf(',')==-1){
+    var key=linksNumber+1
+    var obj=links
+    obj.key=linksNumber
+    var array=linksArray
+    if(array.indexOf(obj)==-1){
+      obj.key=key
+      array.push(obj)
+      setLinksNumber(key)
+      setLinksArray(array)
+    } 
+  }else{
+    alert('Invalid character ","')
+  }  
+  };
+  const handleRemoveLink = (key) => {
+    var array=linksArray
+    for(let c=0;c<array.length;c++){
+      if(array[c].key==key){
+        array.splice(c, 1);
+      }
+    }
+    setLinksArray(array)
+    setRender(render+1)
+  };
    const handleSubmit = (e) => {
     e.preventDefault()
     if(values.profile64!==""){
-    edit(values)
+      var links=[]
+      var linknames=[]
+      linksArray.map(link=>{
+        links.push(link.links)
+        linknames.push(link.linknames)
+      })
+      const req={
+        ...values,
+        links:links.toString(),
+        linknames:linknames.toString()
+      }
+      edit(req)
     }else{
     alert("Please provide the profile image")
     }
@@ -131,6 +195,27 @@ const MemberDetails = ({ className, details,edit,set, ...rest }) => {
               md={6}
               xs={12}
             >
+              <TextField
+                fullWidth
+                label="Formation"
+                name="formation"
+                helperText="To style the text use **bold** or _italic_"
+                onChange={handleChange}
+                value={values.formation}
+                variant="outlined"
+              />
+            </Grid>
+            </Grid>
+            <Grid
+            container
+            spacing={3}
+          >
+            
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
              
               <Button
                 variant="contained"
@@ -152,8 +237,70 @@ const MemberDetails = ({ className, details,edit,set, ...rest }) => {
                 Please provide in square format. Ex: 100 x 100; 50 x 50. MAX SIZE:16MB
               </Typography>
             </Grid>
-           
+            </Grid>
+            <Grid
+            container
+            spacing={3}
+          >
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Link Name"
+                name="linknames"
+                onChange={handleChangeLink}
+                variant="outlined"
+              />
+            </Grid>
+            <Grid
+              item
+              md={5}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Link"
+                name="links"
+                onChange={handleChangeLink}
+                variant="outlined"
+              />
+            </Grid>
+            <Grid
+              item
+              md={1}
+              xs={12}
+              container
+              alignItems='center'
+              justify="center"
+            >
+            <Button onClick={handleAddLink} color="primary" variant="contained" size="large" component="label">Add</Button>
+            </Grid>
+          
+          {linksArray.length!==0?
+          <Grid 
+          item
+          md={12}
+         >
+            <List>
+            <Divider />
+              {linksArray.map((itemLink)=>(
+              <div key={itemLink.key}>
+                <ListItem style={{wordBreak: 'break-all'}}>
+                  <ListItemText primary={itemLink.linknames}/>
+                  <ListItemText primary={itemLink.links}/>
+                  <Button onClick={()=>handleRemoveLink(itemLink.key)} style={{backgroundColor:'#8B0000', color:'white'}} variant="contained"  component="label">x</Button>
+                </ListItem>
+              <Divider />
+              </div>
+              ))}
             
+          </List>
+          </Grid>:""
+          }
+          
           </Grid>
         </CardContent>
         <Divider />

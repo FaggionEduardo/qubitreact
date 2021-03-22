@@ -6,6 +6,8 @@ import CreateTheses from './CreateThesesDetails';
 import { useMutation,useQuery, gql } from '@apollo/client';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import Modal from '../../../components/ModalIcon';
+import ModalText from '../../../components/ModalText'
+import marked from '../../../utils/marked'
 import {
   Avatar,
   Box,
@@ -184,12 +186,9 @@ const ThesesList = (props) => {
                             display="flex"
                           >
                           
-                            <Typography
-                              color="textPrimary"
-                              variant="body1"
-                            >
-                              {these.title}
-                            </Typography>
+                            
+                            <ModalText title="Title" text={marked(these.title)}/> 
+                            
                           </Box>
                         </TableCell>
                         <TableCell>

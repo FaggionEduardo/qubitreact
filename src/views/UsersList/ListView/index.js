@@ -58,11 +58,12 @@ const UsersQuery = gql`
   }
 `;
 const UsersEdit = gql`
-  mutation UsersEdit($id:ID!, $name:String!, $login:String!){
+  mutation UsersEdit($id:ID!, $name:String!, $login:String!,$password:String){
     updateUser(
       id:$id
       name:$name
       login:$login
+      password:$password
   ),{
     id
    

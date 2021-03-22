@@ -56,9 +56,9 @@ const BookDetails = ({ className, details,edit,set, ...rest }) => {
             >
               <TextField
                 fullWidth
-                helperText="Enter the title of the book"
                 label="Title"
                 name="title"
+                helperText="To style the text use **bold** or _italic_"
                 onChange={handleChange}
                 required
                 value={values.title}

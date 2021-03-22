@@ -7,6 +7,7 @@ import { useMutation,useQuery, gql } from '@apollo/client';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import Modal from '../../../components/ModalIcon';
 import ModalText from '../../../components/ModalText';
+import marked from '../../../utils/marked'
 import {
   Avatar,
   Box,
@@ -208,7 +209,7 @@ const CoursesList = (props) => {
                               {course.cod}
                         </TableCell>
                         <TableCell>
-                          <ModalText title="Description" text={course.description}/>
+                          <ModalText title="Description" text={marked(course.description)}/>
                               
                         </TableCell>
                         <TableCell>

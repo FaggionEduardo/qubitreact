@@ -6,6 +6,8 @@ import CreateBooks from './CreateBooksDetails';
 import { useMutation,useQuery, gql } from '@apollo/client';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import Modal from '../../../components/ModalIcon';
+import ModalText from '../../../components/ModalText'
+import marked from '../../../utils/marked'
 import {
   Avatar,
   Box,
@@ -184,12 +186,7 @@ const BooksList = (props) => {
                             display="flex"
                           >
                           
-                            <Typography
-                              color="textPrimary"
-                              variant="body1"
-                            >
-                              {book.title}
-                            </Typography>
+                          <ModalText title="Title" text={marked(book.title)}/> 
                           </Box>
                         </TableCell>
                         <TableCell>

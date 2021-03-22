@@ -13,21 +13,25 @@ import Main from "./layouts/MainLayout"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import LoginView from 'src/views/auth';
 import Courses from 'src/views/CoursesList/ListView';
-import Books from 'src/views/BooksList/ListView';
+import BooksList from 'src/views/BooksList/ListView';
+import Books from 'src/views/Books';
 import MembersList from 'src/views/MembersList/ListView';
 import NewsList from 'src/views/NewsList/ListView';
 import Openings from 'src/views/OpeningsList/ListView';
-import Projects from 'src/views/ProjectsList/ListView';
-import Publications from 'src/views/PublicationsList/ListView';
+import ProjectsList from 'src/views/ProjectsList/ListView';
+import PublicationsList from 'src/views/PublicationsList/ListView';
 import TalksList from 'src/views/TalksList/ListView';
-import Theses from 'src/views/ThesesList/ListView';
+import ThesesList from 'src/views/ThesesList/ListView';
+import Theses from 'src/views/Theses';
 import UpcomingsList from 'src/views/UpcomingsList/ListView';
 import Users from 'src/views/UsersList/ListView';
 import Home from 'src/views/Home';
 import News from 'src/views/News';
-import Upcomings from 'src/views/Upcoming';
-import Talks from 'src/views/Talk';
+import Upcomings from 'src/views/Upcomings';
+import Talks from 'src/views/Talks';
 import Team from 'src/views/Team';
+import Projects from 'src/views/Projects';
+import Publications from 'src/views/Publications';
 
 const App = () => {
  
@@ -63,7 +67,27 @@ const App = () => {
             path="/team" 
             component={() => <Page Children={Team} />} 
             />
+            <Route
+            exact 
+            path="/projects" 
+            component={() => <Page Children={Projects} />} 
+            />
+            <Route
+            exact 
+            path="/publications" 
+            component={() => <Page Children={Publications} />} 
+            />
+            <Route
+            exact 
+            path="/theses" 
+            component={() => <Page Children={Theses} />} 
+            />
               
+            <Route
+            exact 
+            path="/books" 
+            component={() => <Page Children={Books} />} 
+            />
             
             <UnPrivateRoute
              exact 
@@ -74,7 +98,7 @@ const App = () => {
             <PrivateRoute
               exact
               path="/admin/books"
-              component={() => <Dashboard Children={Books} />}
+              component={() => <Dashboard Children={BooksList} />}
             />
 
             <PrivateRoute
@@ -104,13 +128,13 @@ const App = () => {
             <PrivateRoute
               exact
               path="/admin/projects"
-              component={() => <Dashboard Children={Projects} />}
+              component={() => <Dashboard Children={ProjectsList} />}
             />
             
             <PrivateRoute
               exact
               path="/admin/publications"
-              component={() => <Dashboard Children={Publications} />}
+              component={() => <Dashboard Children={PublicationsList} />}
             />
 
             <PrivateRoute
@@ -122,7 +146,7 @@ const App = () => {
             <PrivateRoute
               exact
               path="/admin/theses"
-              component={() => <Dashboard Children={Theses} />}
+              component={() => <Dashboard Children={ThesesList} />}
             />
 
             <PrivateRoute

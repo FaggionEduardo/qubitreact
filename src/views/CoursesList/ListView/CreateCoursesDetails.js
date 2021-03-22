@@ -11,13 +11,34 @@ import {
   Divider,
   Grid,
   TextField,
-  makeStyles
+  makeStyles,
+  TextareaAutosize
 } from '@material-ui/core';
 
 
 
 const useStyles = makeStyles(() => ({
-  root: {}
+  root: {},
+  textarea:{
+    fontFamily:'"Roboto", "Helvetica", "Arial", sans-serif',
+    fontSize:'1rem',
+    padding:'18.5px 14px',
+    borderColor:" rgb(200, 200, 200)",
+    borderRadius:4
+  },
+  label:{
+    fontFamily:'"Roboto", "Helvetica", "Arial", sans-serif',
+    fontSize:'1rem',
+    margin:'0 14px',
+    marginBottom:4,
+    color:'#546e7a'
+  },
+  help:{
+    fontFamily:'"Roboto", "Helvetica", "Arial", sans-serif',
+    fontSize:'0.75rem',
+    margin:'3px 14px',
+    color:'#546e7a'
+  }
 }));
 
 const CourseDetails = ({ className, create, set,...rest }) => {
@@ -95,18 +116,28 @@ const CourseDetails = ({ className, create, set,...rest }) => {
           >
             <Grid
               item
-              md={6}
+              md={12}
               xs={12}
+              style={{display:'flex',flexDirection:'column'}}
             >
-              <TextField
-                fullWidth
-                label="Description"
-                name="description"
-                onChange={handleChange}
-                required
-                variant="outlined"
+              <label className={classes.label}>Description *</label>
+              <TextareaAutosize
+               rowsMin={6} 
+               placeholder="Description *" 
+               name="description"
+               onChange={handleChange}
+               required
+               className={classes.textarea}
               />
+              <span className={classes.help}>Formatting instructions:<br/> To style the text use **bold** or _italic_.<br/> To break line press enter twice. </span> 
+              
             </Grid>
+            
+          </Grid>
+          <Grid
+            container
+            spacing={3}
+          >
             <Grid
               item
               md={6}

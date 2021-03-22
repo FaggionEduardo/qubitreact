@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Page from 'src/components/Page';
 import { useMutation,useQuery, gql } from '@apollo/client';
+import marked from "../../utils/marked"
 import {
     Box,
     Button,
@@ -95,7 +96,7 @@ const UpcomingsView = () => {
           {data.upcomings.map((itemTalks) => (
             <div key={itemTalks.id}>
             <div className={classes.itemTalks} >
-              <b>{addZeroes(new Date(parseInt(itemTalks.date)).getUTCMonth()+1,2)+"."+addZeroes(new Date(parseInt(itemTalks.date)).getUTCDate(),2)+"."+new Date(parseInt(itemTalks.date)).getUTCFullYear()}</b> - {itemTalks.text}  - <a href={itemTalks.link}>Link here!</a>
+              <b>{addZeroes(new Date(parseInt(itemTalks.date)).getUTCMonth()+1,2)+"."+addZeroes(new Date(parseInt(itemTalks.date)).getUTCDate(),2)+"."+new Date(parseInt(itemTalks.date)).getUTCFullYear()}</b>{marked(itemTalks.text)}<a href={itemTalks.link}>Link here!</a>
             </div>
             <Divider/>
             </div>

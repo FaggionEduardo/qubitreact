@@ -18,11 +18,32 @@ import {
   Grid,
   TextField,
   makeStyles,
-  Typography
+  Typography,
+  TextareaAutosize
 } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
-  root: {}
+  root: {},
+  textarea:{
+    fontFamily:'"Roboto", "Helvetica", "Arial", sans-serif',
+    fontSize:'1rem',
+    padding:'18.5px 14px',
+    borderColor:" rgb(200, 200, 200)",
+    borderRadius:4
+  },
+  label:{
+    fontFamily:'"Roboto", "Helvetica", "Arial", sans-serif',
+    fontSize:'1rem',
+    margin:'0 14px',
+    marginBottom:4,
+    color:'#546e7a'
+  },
+  help:{
+    fontFamily:'"Roboto", "Helvetica", "Arial", sans-serif',
+    fontSize:'0.75rem',
+    margin:'3px 14px',
+    color:'#546e7a'
+  }
 }));
 
 const PublicationDetails = ({ className, details,edit,set, ...rest  }) => {
@@ -105,7 +126,7 @@ const PublicationDetails = ({ className, details,edit,set, ...rest  }) => {
         linknames.push(link.linknames)
       })
       const req={
-        ...details,
+        ...values,
         links:links.toString(),
         linknames:linknames.toString()
       }
@@ -133,12 +154,12 @@ const PublicationDetails = ({ className, details,edit,set, ...rest  }) => {
           >
             <Grid
               item
-              md={6}
+              md={12}
               xs={12}
             >
               <TextField
                 fullWidth
-                helperText="Enter the title of the publication"
+                helperText="To style the text use **bold** or _italic_"
                 label="Title"
                 name="title"
                 onChange={handleChange}
@@ -147,20 +168,33 @@ const PublicationDetails = ({ className, details,edit,set, ...rest  }) => {
                 variant="outlined"
               />
             </Grid>
+            
+           
+            
+          </Grid>
+          <Grid
+            container
+            spacing={3}
+          >
+           
             <Grid
               item
-              md={6}
+              md={12}
               xs={12}
+              style={{display:'flex',flexDirection:'column'}}
             >
-              <TextField
-                fullWidth
-                label="Description"
-                name="description"
-                onChange={handleChange}
-                value={values.description}
-                required
-                variant="outlined"
+              <label className={classes.label}>Description *</label>
+              <TextareaAutosize
+               rowsMin={6} 
+               placeholder="Description *" 
+               name="description"
+               onChange={handleChange}
+               defaultValue={values.description}
+               required
+               className={classes.textarea}
               />
+              <span className={classes.help}>Formatting instructions:<br/> To style the text use **bold** or _italic_.<br/> To break line press enter twice. </span> 
+              
             </Grid>
            
             

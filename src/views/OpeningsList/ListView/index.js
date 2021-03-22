@@ -7,6 +7,7 @@ import { useMutation,useQuery, gql } from '@apollo/client';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import Modal from '../../../components/ModalIcon';
 import ModalText from '../../../components/ModalText';
+import marked from "../../../utils/marked"
 import {
   Avatar,
   Box,
@@ -212,7 +213,7 @@ const OpeningsList = (props) => {
                           </Box>
                         </TableCell>
                         <TableCell>
-                          <ModalText title="Description" text={opening.description}/>
+                          <ModalText title="Description" text={marked(opening.description)}/>
                         </TableCell>
                         <TableCell size="small">
                           <ModalText title="Minimum Qualifications" text={opening.minqualifications}/>

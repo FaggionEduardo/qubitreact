@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Page from 'src/components/Page';
 import { useMutation,useQuery, gql } from '@apollo/client';
 import { TwitterTimelineEmbed } from 'react-twitter-embed';
+import marked from "../../utils/marked"
 import {
     Box,
     Button,
@@ -120,8 +121,8 @@ const NewsView = () => {
             <div key={itemNews.id}>
             <div className={classes.itemNews} >
               <div>
-              <b>{addZeroes(new Date(parseInt(itemNews.date)).getUTCMonth()+1,2)+"."+addZeroes(new Date(parseInt(itemNews.date)).getUTCDate(),2)+"."+new Date(parseInt(itemNews.date)).getUTCFullYear()}</b> - {itemNews.text} 
-            {itemNews.url?<> - <a href={itemNews.url}>{itemNews.urlname}</a></>:""}
+              <b>{addZeroes(new Date(parseInt(itemNews.date)).getUTCMonth()+1,2)+"."+addZeroes(new Date(parseInt(itemNews.date)).getUTCDate(),2)+"."+new Date(parseInt(itemNews.date)).getUTCFullYear()}</b> {marked(itemNews.text)} 
+            {itemNews.url?<a href={itemNews.url}>{itemNews.urlname}</a>:""}
             </div>
             {itemNews.image64?<img className={classes.img} src={itemNews.image64} alt={itemNews.imagename}/>:""}
             </div>

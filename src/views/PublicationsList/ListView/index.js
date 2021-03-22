@@ -9,6 +9,7 @@ import Modal from '../../../components/ModalIcon';
 import ModalImage from '../../../components/ModalImage';
 import ModalText from '../../../components/ModalText';
 import ModalLinks from '../../../components/ModalLinks';
+import marked from "../../../utils/marked"
 import {
   Avatar,
   Box,
@@ -210,12 +211,12 @@ const PublicationsList = (props) => {
                               color="textPrimary"
                               variant="body1"
                             >
-                              {publication.title}
+                           <ModalText title="Title" text={marked(publication.title)}/> 
                             </Typography>
                           </Box>
                         </TableCell>
                         <TableCell>
-                        <ModalText title="Description" text={publication.description}/>
+                        <ModalText title="Description" text={marked(publication.description)}/>
                         </TableCell>
                         <TableCell>
                           <ModalLinks title="Links" array={{names:publication.linknames,links:publication.links}}/>

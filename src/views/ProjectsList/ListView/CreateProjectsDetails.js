@@ -18,7 +18,8 @@ import {
   Grid,
   TextField,
   makeStyles,
-  Typography
+  Typography,
+  TextareaAutosize
 } from '@material-ui/core';
 
 
@@ -34,7 +35,27 @@ const MembersQuery = gql`
   }
 `;
 const useStyles = makeStyles(() => ({
-  root: {}
+  root: {},
+  textarea:{
+    fontFamily:'"Roboto", "Helvetica", "Arial", sans-serif',
+    fontSize:'1rem',
+    padding:'18.5px 14px',
+    borderColor:" rgb(200, 200, 200)",
+    borderRadius:4
+  },
+  label:{
+    fontFamily:'"Roboto", "Helvetica", "Arial", sans-serif',
+    fontSize:'1rem',
+    margin:'0 14px',
+    marginBottom:4,
+    color:'#546e7a'
+  },
+  help:{
+    fontFamily:'"Roboto", "Helvetica", "Arial", sans-serif',
+    fontSize:'0.75rem',
+    margin:'3px 14px',
+    color:'#546e7a'
+  }
 }));
 
 const ProjectDetails = ({ className, create, set,...rest }) => {
@@ -82,6 +103,9 @@ const ProjectDetails = ({ className, create, set,...rest }) => {
     });
   };
   const handleAddLink = () => {
+    var stringLinks=links.links.split('')
+    var stringLinknames=links.linknames.split('')
+    if(stringLinknames.indexOf(',')==-1 && stringLinks.indexOf(',')==-1){
     var key=linksNumber+1
     var obj=links
     obj.key=linksNumber
@@ -91,7 +115,10 @@ const ProjectDetails = ({ className, create, set,...rest }) => {
       array.push(obj)
       setLinksNumber(key)
       setLinksArray(array)
-    }  
+    } 
+  }else{
+    alert('Invalid character ","')
+  } 
   };
   const handleAddMember = () => {
     var array=membersArray
@@ -182,7 +209,7 @@ const ProjectDetails = ({ className, create, set,...rest }) => {
           >
             <Grid
               item
-              md={6}
+              md={12}
               xs={12}
             >
               <TextField
@@ -195,19 +222,32 @@ const ProjectDetails = ({ className, create, set,...rest }) => {
                 variant="outlined"
               />
             </Grid>
+            
+           
+            
+          </Grid>
+          <Grid
+            container
+            spacing={3}
+          >
+           
             <Grid
               item
-              md={6}
+              md={12}
               xs={12}
+              style={{display:'flex',flexDirection:'column'}}
             >
-              <TextField
-                fullWidth
-                label="Description"
-                name="description"
-                onChange={handleChange}
-                required
-                variant="outlined"
+              <label className={classes.label}>Description *</label>
+              <TextareaAutosize
+               rowsMin={6} 
+               placeholder="Description *" 
+               name="description"
+               onChange={handleChange}
+               required
+               className={classes.textarea}
               />
+              <span className={classes.help}>Formatting instructions:<br/> To style the text use **bold** or _italic_.<br/> To break line press enter twice. </span> 
+              
             </Grid>
            
             

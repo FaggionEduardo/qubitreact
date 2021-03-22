@@ -55,7 +55,7 @@ export default function TransitionsModal(props) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <p style={{wordBreak: 'break-all'}}>{props.text}</p>
+            <span style={{wordBreak: 'break-all'}}>{props.text}</span>
           </div>
         </Fade>
       </Modal>

@@ -83,23 +83,23 @@ const TopBar = () => {
         <MenuItem className={classes.menuItem}>Media attention</MenuItem>
        </div>
        </ItemMenu>
-       <Link to="/team"><Typography className={classes.item}>Team</Typography></Link>
+       
        <ItemMenu className={classes.item} item={<span style={{display:'flex'}}>Research<FontAwesomeIcon style={{marginLeft:2}} icon={faSortDown}/></span>}>
        <div>
-        <MenuItem className={classes.menuItem}>Projects</MenuItem>
+       <Link to="/projects"><MenuItem className={classes.menuItem}>Projects</MenuItem></Link>
         <Divider/>
-        <MenuItem className={classes.menuItem}>Publications</MenuItem>
+       <Link to="/publications"><MenuItem className={classes.menuItem}>Publications</MenuItem></Link>
         <Divider/>
-        <MenuItem className={classes.menuItem}>Theses</MenuItem>
+       <Link to="/theses"><MenuItem className={classes.menuItem}>Theses</MenuItem></Link>
         <Divider/>
-        <MenuItem className={classes.menuItem}>Books</MenuItem>
+       <Link to="/books"><MenuItem className={classes.menuItem}>Books</MenuItem></Link>
        </div>
        </ItemMenu>
        <Link to="/admin"><Typography className={classes.item}>Courses</Typography></Link>
        <Link to="/admin"><Typography className={classes.item}>Outreach</Typography></Link>
        <ItemMenu className={classes.item} item={<span style={{display:'flex'}}>Core group values<FontAwesomeIcon style={{marginLeft:2}} icon={faSortDown}/></span>}>
        <div>
-        <MenuItem className={classes.menuItem}>Group constituition</MenuItem>
+       <Link to="/team"><MenuItem className={classes.menuItem}>Team</MenuItem></Link>
         <Divider/>
         <MenuItem className={classes.menuItem}>Diversity</MenuItem>
        </div>
@@ -108,7 +108,7 @@ const TopBar = () => {
        <div>
         <MenuItem className={classes.menuItem}>Resources for mental health</MenuItem>
         <Divider/>
-        <MenuItem className={classes.menuItem}>Group YouTube channel</MenuItem>
+        <a href="https://www.youtube.com/channel/UCsm_FTN6OVrKtP_fZVu_bCA"><MenuItem className={classes.menuItem}>Group YouTube channel</MenuItem></a>
         <Divider/>
         <MenuItem className={classes.menuItem}>Mentoring</MenuItem>
         <Divider/>
@@ -117,8 +117,6 @@ const TopBar = () => {
        </ItemMenu>
        <ItemMenu className={classes.item} item={<span style={{display:'flex'}}>Contact<FontAwesomeIcon style={{marginLeft:2}} icon={faSortDown}/></span>}>
        <div>
-        <MenuItem className={classes.menuItem}>Contacts</MenuItem>
-        <Divider/>
         <MenuItem className={classes.menuItem}>Requests for recommendation letters</MenuItem>
         <Divider/>
         <MenuItem className={classes.menuItem}>Openings</MenuItem>
@@ -147,21 +145,18 @@ const TopBar = () => {
        </div>
        </ItemMenu>
        </MenuItem>
-       <Divider/>
-       <MenuItem>
-       <Link to="/team"><Typography className={classes.item}>Team</Typography></Link>
-       </MenuItem>
+       
        <Divider/>
        <MenuItem>
        <ItemMenu className={classes.item} item={<span style={{display:'flex'}}>Research<FontAwesomeIcon style={{marginLeft:2}} icon={faSortDown}/></span>}>
        <div>
-        <MenuItem className={classes.menuItem}>Projects</MenuItem>
+       <Link to="/projects"><MenuItem className={classes.menuItem}>Projects</MenuItem></Link>
         <Divider/>
-        <MenuItem className={classes.menuItem}>Publications</MenuItem>
+       <Link to="/publications"><MenuItem className={classes.menuItem}>Publications</MenuItem></Link>
         <Divider/>
-        <MenuItem className={classes.menuItem}>Theses</MenuItem>
+       <Link to="/theses"><MenuItem className={classes.menuItem}>Theses</MenuItem></Link>
         <Divider/>
-        <MenuItem className={classes.menuItem}>Books</MenuItem>
+       <Link to="/books"><MenuItem className={classes.menuItem}>Books</MenuItem></Link>
        </div>
        </ItemMenu>
        </MenuItem>
@@ -177,7 +172,7 @@ const TopBar = () => {
        <MenuItem>
        <ItemMenu className={classes.item} item={<span style={{display:'flex'}}>Core group values<FontAwesomeIcon style={{marginLeft:2}} icon={faSortDown}/></span>}>
        <div>
-        <MenuItem className={classes.menuItem}>Group constituition</MenuItem>
+       <Link to="/team"><MenuItem className={classes.menuItem}>Team</MenuItem></Link>
         <Divider/>
         <MenuItem className={classes.menuItem}>Diversity</MenuItem>
        </div>
@@ -189,7 +184,7 @@ const TopBar = () => {
        <div>
         <MenuItem className={classes.menuItem}>Resources for mental health</MenuItem>
         <Divider/>
-        <MenuItem className={classes.menuItem}>Group YouTube channel</MenuItem>
+        <a href="https://www.youtube.com/channel/UCsm_FTN6OVrKtP_fZVu_bCA"><MenuItem className={classes.menuItem}>Group YouTube channel</MenuItem></a>
         <Divider/>
         <MenuItem className={classes.menuItem}>Mentoring</MenuItem>
         <Divider/>
@@ -201,8 +196,6 @@ const TopBar = () => {
        <MenuItem>
        <ItemMenu className={classes.item} item={<span style={{display:'flex'}}>Contact<FontAwesomeIcon style={{marginLeft:2}} icon={faSortDown}/></span>}>
        <div>
-        <MenuItem className={classes.menuItem}>Contacts</MenuItem>
-        <Divider/>
         <MenuItem className={classes.menuItem}>Requests for recommendation letters</MenuItem>
         <Divider/>
         <MenuItem className={classes.menuItem}>Openings</MenuItem>

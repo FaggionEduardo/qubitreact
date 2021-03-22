@@ -26,10 +26,9 @@ const useStyles = makeStyles((theme) => ({
     img:{
       width:'40%',
       opacity:0.2,
-      marginTop:20,    
+      marginTop:80,    
       position:'absolute',
       [theme.breakpoints.down("sm")]: {
-        marginTop:40,  
         width:'90%',
       },
     },

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Page from 'src/components/Page';
 import { useMutation,useQuery, gql } from '@apollo/client';
-
+import marked from "../../utils/marked"
 import {
     Box,
     Button,
@@ -34,13 +34,13 @@ const useStyles = makeStyles((theme) => ({
         fontSize:'4.5vw',
       },
     },
-    talks:{
+    books:{
         width:'80%',
         [theme.breakpoints.down("sm")]: {
           width:'100%',
         },
     },
-    itemTalks:{
+    itemBooks:{
       margin:'4% 0',
       fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
       fontSize:'1vw',
@@ -52,51 +52,38 @@ const useStyles = makeStyles((theme) => ({
     
     
   }));
-  const TalkQuery = gql`
-  query TalkQuery{
-    talks{
+  const BookQuery = gql`
+  query BookQuery{
+    books{
         id
-        date
-        text
+        title
         link
     }
   }
 `;
-const addZeroes = (num, len) => {
-  var numberWithZeroes = String(num);
-  var counter = numberWithZeroes.length;
-      
-  while(counter < len) {
-  
-      numberWithZeroes = "0" + numberWithZeroes;
-    
-    counter++;
-  
-    }
-  
-  return numberWithZeroes;
-}
-const TalksView = () => {
+
+const BooksView = () => {
   const classes = useStyles();
-  const { loading, error, data } = useQuery(TalkQuery);
+  const { loading, error, data } = useQuery(BookQuery);
   return (
     
       <Page
-        title="Talks"
+        title="Books"
         className={classes.root}
       >
-        <Typography className={classes.title} variant="h1">All talks and conference presentation</Typography>
+        <Typography className={classes.title} variant="h1">Books</Typography>
     
-        <div className={classes.talks}>
+        <div className={classes.books}>
         {loading?"":<>
-        {error? <>Error loading talks</> 
+        {error? <>Error loading books</> 
         :
         <>
           <Divider/>
-          {data.talks.map((itemTalks) => (
-            <div key={itemTalks.id}>
-            <div className={classes.itemTalks} >
-              <b>{addZeroes(new Date(parseInt(itemTalks.date)).getUTCMonth()+1,2)+"."+addZeroes(new Date(parseInt(itemTalks.date)).getUTCDate(),2)+"."+new Date(parseInt(itemTalks.date)).getUTCFullYear()}</b> - {itemTalks.text}  - <a href={itemTalks.link}>Link here!</a>
+          {data.books.map((itemBooks) => (
+            <div key={itemBooks.id}>
+            <div className={classes.itemBooks} >
+             {marked(itemBooks.title)} 
+             <a href={itemBooks.link}>Link here!</a>
             </div>
             <Divider/>
             </div>
@@ -112,4 +99,4 @@ const TalksView = () => {
   );
 };
 
-export default (TalksView);
+export default (BooksView);

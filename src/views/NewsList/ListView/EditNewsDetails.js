@@ -47,11 +47,9 @@ const NewsDetails = ({ className, details,edit,set, ...rest }) => {
    };
   const handleSubmit = (e) => {
     e.preventDefault()
-    if(values.image64!==""){
+    
     edit(values)
-    }else{
-    alert("Please provide the image")
-    }
+    
     
    };
   const addZeroes = (num, len) => {
@@ -110,6 +108,7 @@ const NewsDetails = ({ className, details,edit,set, ...rest }) => {
                 fullWidth
                 label="Text"
                 name="text"
+                helperText="To style the text use **bold** or _italic_"
                 value={values.text}
                 onChange={handleChange}
                 required

@@ -7,6 +7,8 @@ import { useMutation,useQuery, gql } from '@apollo/client';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import Modal from '../../../components/ModalIcon';
 import ModalImage from '../../../components/ModalImage';
+import ModalLinks from '../../../components/ModalLinks';
+import marked from "../../../utils/marked"
 import {
   Avatar,
   Box,
@@ -54,6 +56,9 @@ const MembersQuery = gql`
         name
         email
         acting
+        formation
+        links
+        linknames
         profile64
       }
       total
@@ -62,12 +67,15 @@ const MembersQuery = gql`
 `;
 
 const MembersEdit = gql`
-  mutation MembersEdit($id:ID!, $name:String!, $email:String!, $acting:String!, $profile64:String!){
+  mutation MembersEdit($id:ID!, $name:String!, $email:String!, $acting:String!,$formation:String!,$links:String!,$linknames:String!, $profile64:String!){
     updateMember(
       id:$id
       name:$name
       email:$email
       acting:$acting
+      formation:$formation
+      links:$links
+      linknames:$linknames
       profile64:$profile64
   ),{
     id
@@ -76,11 +84,14 @@ const MembersEdit = gql`
   }
 `;
 const MembersCreate = gql`
-  mutation MembersCreate( $name:String!, $email:String!, $acting:String!, $profile64:String!){
+  mutation MembersCreate( $name:String!, $email:String!, $acting:String!,$formation:String!,$links:String!,$linknames:String!, $profile64:String!){
     createMember(
       name:$name
       email:$email
       acting:$acting
+      formation:$formation
+      links:$links
+      linknames:$linknames
       profile64:$profile64
   ),{
     id
@@ -176,6 +187,12 @@ const MembersList = (props) => {
                         Acting
                       </TableCell>
                       <TableCell>
+                        Formation
+                      </TableCell>
+                      <TableCell>
+                        Links
+                      </TableCell>
+                      <TableCell>
                         Profile
                       </TableCell>
                       
@@ -210,6 +227,13 @@ const MembersList = (props) => {
                         </TableCell>
                         <TableCell>
                           {member.acting}
+                        </TableCell>
+                        <TableCell>
+                          {marked(member.formation)}
+                        </TableCell>
+                        <TableCell>
+                          {member.linknames && member.links?<ModalLinks title="Links" array={{names:member.linknames,links:member.links}}/>:""}
+                        
                         </TableCell>
                         <TableCell>
                           <ModalImage text="Profile" img={member.profile64}/>

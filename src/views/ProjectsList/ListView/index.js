@@ -10,6 +10,7 @@ import ModalImage from '../../../components/ModalImage';
 import ModalText from '../../../components/ModalText';
 import ModalLinks from '../../../components/ModalLinks';
 import ModalMembers from '../../../components/ModalMembers';
+import marked from "../../../utils/marked"
 import {
   Avatar,
   Box,
@@ -220,7 +221,7 @@ const ProjectsList = (props) => {
                           </Box>
                         </TableCell>
                         <TableCell>
-                        <ModalText title="Description" text={project.description}/>
+                        <ModalText title="Description" text={marked(project.description)}/>
                         </TableCell>
                         <TableCell>
                           <ModalLinks title="Links" array={{names:project.linknames,links:project.links}}/>

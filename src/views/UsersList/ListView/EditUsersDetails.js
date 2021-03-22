@@ -22,8 +22,7 @@ const useStyles = makeStyles(() => ({
 
 const TheseDetails = ({ className, details,edit,set, ...rest }) => {
   const classes = useStyles();
-  const [values, setValues] = useState(details);
-  
+  const [values, setValues] = useState({...details,password:""});
   const handleChange = (event) => {
     setValues({
       ...values,
@@ -98,7 +97,6 @@ const TheseDetails = ({ className, details,edit,set, ...rest }) => {
                 name="password"
                 type="password"
                 onChange={handleChange}
-                required
                 variant="outlined"
               />
             </Grid>

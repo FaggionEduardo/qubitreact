@@ -56,7 +56,7 @@ const TheseDetails = ({ className, details,edit,set, ...rest }) => {
             >
               <TextField
                 fullWidth
-                helperText="Enter the title of the these"
+                helperText="To style the text use **bold** or _italic_"
                 label="Title"
                 name="title"
                 onChange={handleChange}

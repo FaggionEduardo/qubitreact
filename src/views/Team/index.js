@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Page from 'src/components/Page';
 import { useMutation,useQuery, gql } from '@apollo/client';
-
+import ItemMenu from "../../components/ItemMenu2"
+import marked from "../../utils/marked"
 import {
     Box,
     Button,
@@ -87,8 +88,43 @@ const useStyles = makeStyles((theme) => ({
       [theme.breakpoints.down("sm")]: {
         fontSize:'4vw',
       },
+    },
+    infos:{
+      fontSize:'0.9vw',
+      margin:'1% 0',
+      cursor:'pointer',
+      [theme.breakpoints.down("sm")]: {
+        fontSize:'3.5vw',
+      },
+    },
+    formation:{
+      fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+      fontSize:'0.9vw',
+      margin:'1% 0',
+      cursor:'pointer',
+      display:'flex',
+      [theme.breakpoints.down("sm")]: {
+        fontSize:'3.5vw',
+      },
+    },
+    links:{
+      fontSize:'0.9vw',
+      margin:'1% 0',
+      cursor:'pointer',
+      fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+      display:'flex',
+      flexDirection:'column',
+      [theme.breakpoints.down("sm")]: {
+        fontSize:'3.5vw',
+      },
+    },
+    menu:{
+      width: '15vw',
+      [theme.breakpoints.down("sm")]: {
+        width: '80vw',
+        
+      },
     }
-    
     
     
   }));
@@ -99,6 +135,9 @@ const useStyles = makeStyles((theme) => ({
         name
         email
         acting
+        formation
+        links 
+        linknames
         profile64
     }
   }
@@ -109,6 +148,18 @@ const useStyles = makeStyles((theme) => ({
 const MembersView = () => {
   const classes = useStyles();
   const { loading, error, data } = useQuery(MemberQuery);
+  const members=[]
+  if(!loading){
+    for(var i=0;i<data.members.length;i++){
+    var obj={linknames:data.members[i].linknames,links:data.members[i].links}
+    var array=obj.linknames.split(',')
+    var array2=obj.links.split(',')
+    for(var c=0;c<array.length;c++){
+      array[c]={key:c,name:array[c],link:array2[c]}
+    }
+    members[i]={...data.members[i],linkObj:array}
+    }
+  }
   return (
     
       <Page
@@ -123,14 +174,31 @@ const MembersView = () => {
         :
         <>
           
-          {data.members.map((itemMembers) => (
+          {members.map((itemMembers) => (
             
             <div className={classes.itemMembers} key={itemMembers.id} >
             <Avatar alt={itemMembers.name} src={itemMembers.profile64 }className={classes.avatar} />
             <Typography className={classes.name} variant="h1">{itemMembers.name}</Typography>
             <Typography className={classes.acting} variant="body1">{itemMembers.acting}</Typography>
             <Typography className={classes.email} variant="body1">{itemMembers.email}</Typography>
-             
+            {itemMembers.formation || itemMembers.links || itemMembers.linknames?
+            <ItemMenu className={classes.infos} item='More Infos +'>
+            <div className={classes.menu}>
+            {itemMembers.formation?
+            <span className={classes.formation} ><b>Formation:</b>{marked(itemMembers.formation)}</span>
+            :""}
+            {itemMembers.links && itemMembers.linknames?
+            <div className={classes.links}>
+              Links:
+            {itemMembers.linkObj.map((item)=>(
+               <a key={item.key}  href={item.link}>{item.name}</a>
+             ))}
+            </div>
+            :""}
+            </div>
+            </ItemMenu>
+            :""}
+            
             </div>
     
           ))}

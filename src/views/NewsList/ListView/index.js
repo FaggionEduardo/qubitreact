@@ -8,6 +8,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import Modal from '../../../components/ModalIcon';
 import ModalImage from '../../../components/ModalImage';
 import ModalText from '../../../components/ModalText';
+import marked from "../../../utils/marked"
 import {
   Avatar,
   Box,
@@ -227,7 +228,7 @@ const NewsList = (props) => {
                           </Box>
                         </TableCell>
                         <TableCell>
-                          <ModalText title="Text" text={news.text}/>
+                          <ModalText title="Text" text={marked(news.text)}/>
                         </TableCell>
                         <TableCell>
                           <a href={news.url}>{news.urlname}</a>

@@ -80,6 +80,7 @@ const UpcomingDetails = ({ className, create, set,...rest }) => {
                 fullWidth
                 label="Text"
                 name="text"
+                helperText="To style the text use **bold** or _italic_"
                 onChange={handleChange}
                 required
                 variant="outlined"
