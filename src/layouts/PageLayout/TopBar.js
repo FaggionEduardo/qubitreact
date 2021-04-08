@@ -95,7 +95,7 @@ const TopBar = () => {
        <Link to="/books"><MenuItem className={classes.menuItem}>Books</MenuItem></Link>
        </div>
        </ItemMenu>
-       <Link to="/admin"><Typography className={classes.item}>Courses</Typography></Link>
+       <Link to="/courses"><Typography className={classes.item}>Courses</Typography></Link>
        <Link to="/admin"><Typography className={classes.item}>Outreach</Typography></Link>
        <ItemMenu className={classes.item} item={<span style={{display:'flex'}}>Core group values<FontAwesomeIcon style={{marginLeft:2}} icon={faSortDown}/></span>}>
        <div>
@@ -119,7 +119,7 @@ const TopBar = () => {
        <div>
         <MenuItem className={classes.menuItem}>Requests for recommendation letters</MenuItem>
         <Divider/>
-        <MenuItem className={classes.menuItem}>Openings</MenuItem>
+        <Link to="/openings"><MenuItem className={classes.menuItem}>Openings</MenuItem></Link>
         <Divider/>
         <MenuItem className={classes.menuItem}>Visiting directions</MenuItem>
        </div>
@@ -162,7 +162,7 @@ const TopBar = () => {
        </MenuItem>
        <Divider/>
        <MenuItem>
-       <Link to="/admin"><Typography className={classes.item}>Courses</Typography></Link>
+       <Link to="/courses"><Typography className={classes.item}>Courses</Typography></Link>
        </MenuItem>
        <Divider/>
        <MenuItem>
@@ -198,7 +198,7 @@ const TopBar = () => {
        <div>
         <MenuItem className={classes.menuItem}>Requests for recommendation letters</MenuItem>
         <Divider/>
-        <MenuItem className={classes.menuItem}>Openings</MenuItem>
+        <Link to="/openings"><MenuItem className={classes.menuItem}>Openings</MenuItem></Link>
         <Divider/>
         <MenuItem className={classes.menuItem}>Visiting directions</MenuItem>
        </div>

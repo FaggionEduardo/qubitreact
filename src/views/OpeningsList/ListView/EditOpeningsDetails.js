@@ -134,35 +134,51 @@ const OpeningDetails = ({ className, details,edit,set, ...rest }) => {
           >
             <Grid
               item
-              md={6}
+              md={12}
               xs={12}
+              style={{display:'flex',flexDirection:'column'}}
             >
-              <TextField
-                fullWidth
-                label="Minimum Qualifications"
-                name="minqualifications"
-                onChange={handleChange}
-                required
-                value={values.minqualifications}
-                variant="outlined"
+              <label className={classes.label}>Minimum Qualifications *</label>
+              <TextareaAutosize
+               rowsMin={6} 
+               placeholder="Minimum Qualifications *" 
+               name="minqualifications"
+               defaultValue={values.minqualifications}
+               onChange={handleChange}
+               required
+               className={classes.textarea}
               />
+              <span className={classes.help}>Formatting instructions:<br/> To style the text use **bold** or _italic_.<br/> To break line press enter twice. </span> 
+              
             </Grid>
+            
+          </Grid>
+          <Grid
+            container
+            spacing={3}
+          >
             <Grid
               item
-              md={6}
+              md={12}
               xs={12}
+              style={{display:'flex',flexDirection:'column'}}
             >
-              <TextField
-                fullWidth
-                label="Preferred Qualifications"
-                name="prefqualifications"
-                onChange={handleChange}
-                required
-                value={values.prefqualifications}
-                variant="outlined"
+              <label className={classes.label}>Preferred Qualifications *</label>
+              <TextareaAutosize
+               rowsMin={6} 
+               placeholder="Preferred Qualifications *" 
+               name="prefqualifications"
+               defaultValue={values.minqualifications}
+               onChange={handleChange}
+               required
+               className={classes.textarea}
               />
+              <span className={classes.help}>Formatting instructions:<br/> To style the text use **bold** or _italic_.<br/> To break line press enter twice. </span> 
+              
             </Grid>
+            
           </Grid>
+          
           
         </CardContent>
         <Divider />

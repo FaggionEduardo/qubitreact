@@ -12,12 +12,14 @@ import Page from "./layouts/PageLayout"
 import Main from "./layouts/MainLayout"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import LoginView from 'src/views/auth';
-import Courses from 'src/views/CoursesList/ListView';
+import CoursesList from 'src/views/CoursesList/ListView';
+import Courses from 'src/views/Courses';
 import BooksList from 'src/views/BooksList/ListView';
 import Books from 'src/views/Books';
 import MembersList from 'src/views/MembersList/ListView';
 import NewsList from 'src/views/NewsList/ListView';
-import Openings from 'src/views/OpeningsList/ListView';
+import OpeningsList from 'src/views/OpeningsList/ListView';
+import Openings from 'src/views/Openings';
 import ProjectsList from 'src/views/ProjectsList/ListView';
 import PublicationsList from 'src/views/PublicationsList/ListView';
 import TalksList from 'src/views/TalksList/ListView';
@@ -82,11 +84,20 @@ const App = () => {
             path="/theses" 
             component={() => <Page Children={Theses} />} 
             />
-              
             <Route
             exact 
             path="/books" 
             component={() => <Page Children={Books} />} 
+            />
+            <Route
+            exact 
+            path="/courses" 
+            component={() => <Page Children={Courses} />} 
+            />
+            <Route
+            exact 
+            path="/openings" 
+            component={() => <Page Children={Openings} />} 
             />
             
             <UnPrivateRoute
@@ -104,7 +115,7 @@ const App = () => {
             <PrivateRoute
               exact
               path="/admin/courses"
-              component={() => <Dashboard Children={Courses} />}
+              component={() => <Dashboard Children={CoursesList} />}
             />
 
             <PrivateRoute
@@ -122,7 +133,7 @@ const App = () => {
             <PrivateRoute
               exact
               path="/admin/openings"
-              component={() => <Dashboard Children={Openings} />}
+              component={() => <Dashboard Children={OpeningsList} />}
             />
 
             <PrivateRoute

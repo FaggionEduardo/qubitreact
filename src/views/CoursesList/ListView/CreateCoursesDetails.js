@@ -153,6 +153,19 @@ const CourseDetails = ({ className, create, set,...rest }) => {
                 variant="outlined"
               />
             </Grid>
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Link"
+                name="link"
+                onChange={handleChange}
+                variant="outlined"
+              />
+            </Grid>
            
             
           </Grid>

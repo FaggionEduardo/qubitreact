@@ -56,19 +56,21 @@ const CoursesQuery = gql`
         cod
         description
         period
+        link
       }
       total
     }
   }
 `;
 const CoursesEdit = gql`
-  mutation CoursesEdit($id:ID!, $title:String!, $cod:String!, $description:String!, $period:String!){
+  mutation CoursesEdit($id:ID!, $title:String!, $cod:String!, $description:String!, $period:String!,$link:String){
     updateCourse(
       id:$id
       title:$title
       cod:$cod
       description:$description
       period:$period
+      link:$link
   ),{
     id
    
@@ -76,12 +78,13 @@ const CoursesEdit = gql`
   }
 `;
 const CoursesCreate = gql`
-  mutation CoursesCreate( $title:String!, $cod:String!, $description:String!, $period:String!){
+  mutation CoursesCreate( $title:String!, $cod:String!, $description:String!, $period:String!,$link:String){
     createCourse(
       title:$title
       cod:$cod
       description:$description
       period:$period
+      link:$link
   ),{
     id
    
@@ -180,6 +183,9 @@ const CoursesList = (props) => {
                         Period
                       </TableCell>
                       <TableCell>
+                        Link
+                      </TableCell>
+                      <TableCell>
                         
                       </TableCell>
                     </TableRow>
@@ -214,6 +220,9 @@ const CoursesList = (props) => {
                         </TableCell>
                         <TableCell>
                               {course.period}
+                        </TableCell>
+                        <TableCell>
+                              <a href={course.link}>Link</a>
                         </TableCell>
                         <TableCell>
                           <Modal

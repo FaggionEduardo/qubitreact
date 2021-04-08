@@ -216,10 +216,10 @@ const OpeningsList = (props) => {
                           <ModalText title="Description" text={marked(opening.description)}/>
                         </TableCell>
                         <TableCell size="small">
-                          <ModalText title="Minimum Qualifications" text={opening.minqualifications}/>
+                          <ModalText title="Minimum Qualifications" text={marked(opening.minqualifications)}/>
                         </TableCell>
                         <TableCell size="small">
-                          <ModalText title="Preferred Qualifications" text={opening.prefqualifications}/>
+                          <ModalText title="Preferred Qualifications" text={marked(opening.prefqualifications)}/>
                         </TableCell>
                         <TableCell>
                           <a href={opening.link}>Link</a>
