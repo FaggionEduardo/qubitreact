@@ -13,7 +13,7 @@ import {
   makeStyles,
   Divider
 } from '@material-ui/core';
-
+import Fade from 'react-reveal/Fade';
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    color: '#263238',
     [theme.breakpoints.down("md")]: {
       marginTop: 116,
     },
@@ -30,6 +31,11 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     fontSize: '2vw',
     margin: '5vh 0',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    color: '#005fb1',
     [theme.breakpoints.down("sm")]: {
       fontSize: '4.5vw',
     },
@@ -80,7 +86,9 @@ const ThesesView = () => {
       title="Theses"
       className={classes.root}
     >
-      <Typography className={classes.title} variant="h1">Theses</Typography>
+      <Typography className={classes.title} variant="h1">Theses
+      <Divider style={{ width: '10%', marginTop: '1%', backgroundColor: '#ffb621' }} />
+      </Typography>
 
       <div className={classes.theses}>
         {loading ? "" : <>
@@ -88,14 +96,25 @@ const ThesesView = () => {
             :
             <>
               <Divider />
-              {theses.map((itemTheses) => (
-                <div key={itemTheses.id}>
-                  <div className={classes.itemTheses} >
-                    {marked(itemTheses.key + ". " + itemTheses.title)}
-                    <a href={itemTheses.link}>Link here!</a>
+              {theses.length == 0 ?
+                <Fade left>
+                  
+                    <div className={classes.itemTheses} >
+                      Sorry, there isn't content here yet.
+                  
                   </div>
-                  <Divider />
-                </div>
+                </Fade>
+                : ""}
+              {theses.map((itemTheses) => (
+                <Fade key={itemTheses.id} left>
+                  <div>
+                    <div className={classes.itemTheses} >
+                      {marked(itemTheses.key + ". " + itemTheses.title)}
+                      <a href={itemTheses.link}>Link here!</a>
+                    </div>
+                    <Divider />
+                  </div>
+                </Fade>
               ))}
             </>
           }

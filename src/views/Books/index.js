@@ -13,7 +13,7 @@ import {
   makeStyles,
   Divider
 } from '@material-ui/core';
-
+import Fade from 'react-reveal/Fade';
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    color: '#263238',
     [theme.breakpoints.down("md")]: {
       marginTop: 116,
     },
@@ -30,6 +31,11 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     fontSize: '2vw',
     margin: '5vh 0',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    color: '#005fb1',
     [theme.breakpoints.down("sm")]: {
       fontSize: '4.5vw',
     },
@@ -80,7 +86,9 @@ const BooksView = () => {
       title="Books"
       className={classes.root}
     >
-      <Typography className={classes.title} variant="h1">Books</Typography>
+      <Typography className={classes.title} variant="h1">Books
+      <Divider style={{ width: '9%', marginTop: '1%', backgroundColor: '#ffb621' }} />
+      </Typography>
 
       <div className={classes.books}>
         {loading ? "" : <>
@@ -88,14 +96,25 @@ const BooksView = () => {
             :
             <>
               <Divider />
-              {books.map((itemBooks) => (
-                <div key={itemBooks.id}>
-                  <div className={classes.itemBooks} >
-                    {marked(itemBooks.key + ". " + itemBooks.title)}
-                    <a href={itemBooks.link}>Link here!</a>
+              {books.length == 0 ?
+                <Fade left>
+                  <div>
+                    <div className={classes.itemBooks} >
+                      Sorry, there isn't content here yet.
                   </div>
-                  <Divider />
-                </div>
+                  </div>
+                </Fade>
+                : ""}
+              {books.map((itemBooks) => (
+                <Fade left key={itemBooks.id}>
+                  <div>
+                    <div className={classes.itemBooks} >
+                      {marked(itemBooks.key + ". " + itemBooks.title)}
+                      <a href={itemBooks.link}>Link here!</a>
+                    </div>
+                    <Divider />
+                  </div>
+                </Fade>
               ))}
             </>
           }

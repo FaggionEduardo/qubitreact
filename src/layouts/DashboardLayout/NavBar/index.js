@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
-import { useMutation,useQuery, gql } from '@apollo/client';
+import { useMutation, useQuery, gql } from '@apollo/client';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGraduationCap, faBook, faUsers, faUser, faNewspaper, faAddressCard, faSquareRootAlt, faBookOpen, faCommentAlt } from '@fortawesome/free-solid-svg-icons'
-import {  useAuth } from '../../../providers/Auth'
+import { useAuth } from '../../../providers/Auth'
 import {
   Avatar,
   Box,
@@ -23,66 +23,71 @@ import NavItem from './NavItem';
 
 
 const items = [
-  
+
   {
     href: '/admin/users',
-    icon: ()=><FontAwesomeIcon size="lg" icon={faUser} />,
+    icon: () => <FontAwesomeIcon size="lg" icon={faUser} />,
     title: 'Users'
   },
   {
     href: '/admin/members',
-    icon: ()=><FontAwesomeIcon size="lg" icon={faUsers} />,
+    icon: () => <FontAwesomeIcon size="lg" icon={faUsers} />,
     title: 'Team Members'
   },
   {
     href: '/admin/courses',
-    icon: ()=><FontAwesomeIcon size="lg" icon={faGraduationCap} />,
+    icon: () => <FontAwesomeIcon size="lg" icon={faGraduationCap} />,
     title: 'Courses'
   },
   {
     href: '/admin/news',
-    icon: ()=><FontAwesomeIcon size="lg" icon={faNewspaper} />,
+    icon: () => <FontAwesomeIcon size="lg" icon={faNewspaper} />,
     title: 'News'
   },
   {
+    href: '/admin/medias',
+    icon: () => <FontAwesomeIcon size="lg" icon={faNewspaper} />,
+    title: 'Media attention'
+  },
+  {
     href: '/admin/talks',
-    icon: ()=><FontAwesomeIcon size="lg" icon={faCommentAlt} />,
+    icon: () => <FontAwesomeIcon size="lg" icon={faCommentAlt} />,
     title: 'Talks'
   },
   {
     href: '/admin/upcomings',
-    icon: ()=><FontAwesomeIcon size="lg" icon={faCommentAlt} />,
+    icon: () => <FontAwesomeIcon size="lg" icon={faCommentAlt} />,
     title: 'Upcoming Talks'
   },
   {
     href: '/admin/openings',
-    icon: ()=><FontAwesomeIcon size="lg" icon={faAddressCard} />,
+    icon: () => <FontAwesomeIcon size="lg" icon={faAddressCard} />,
     title: 'Openings'
   },
   {
     href: '/admin/projects',
-    icon: ()=><FontAwesomeIcon size="lg" icon={faSquareRootAlt} />,
+    icon: () => <FontAwesomeIcon size="lg" icon={faSquareRootAlt} />,
     title: 'Projects'
   },
   {
     href: '/admin/publications',
-    icon: ()=><FontAwesomeIcon size="lg" icon={faBookOpen} />,
+    icon: () => <FontAwesomeIcon size="lg" icon={faBookOpen} />,
     title: 'Publications'
   },
   {
     href: '/admin/theses',
-    icon: ()=><FontAwesomeIcon size="lg" icon={faBookOpen} />,
+    icon: () => <FontAwesomeIcon size="lg" icon={faBookOpen} />,
     title: 'Theses'
   },
   {
     href: '/admin/books',
-    icon: ()=><FontAwesomeIcon size="lg" icon={faBook} />,
+    icon: () => <FontAwesomeIcon size="lg" icon={faBook} />,
     title: 'Books'
   },
- 
-  
-  
-  
+
+
+
+
 ];
 
 const useStyles = makeStyles(() => ({
@@ -104,8 +109,8 @@ const useStyles = makeStyles(() => ({
 const NavBar = ({ onMobileClose, openMobile }) => {
   const classes = useStyles();
   const location = useLocation();
-  const {auth} =useAuth()
-  
+  const { auth } = useAuth()
+
   useEffect(() => {
     if (openMobile && onMobileClose) {
       onMobileClose();
@@ -130,7 +135,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           color="textPrimary"
           variant="h5"
         >
-         {"Welcome, "+auth.user.name}
+          {"Welcome, " + auth.user.name}
         </Typography>
       </Box>
       <Divider />
@@ -147,8 +152,8 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         </List>
       </Box>
       <Box flexGrow={1} />
-      
-    
+
+
     </Box>
   );
 
@@ -185,7 +190,7 @@ NavBar.propTypes = {
 };
 
 NavBar.defaultProps = {
-  onMobileClose: () => {},
+  onMobileClose: () => { },
   openMobile: false
 };
 

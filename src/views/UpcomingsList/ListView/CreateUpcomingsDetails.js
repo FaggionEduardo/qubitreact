@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { useMutation,useQuery, gql } from '@apollo/client';
+import { useMutation, useQuery, gql } from '@apollo/client';
 import {
   Box,
   Button,
@@ -20,28 +20,28 @@ const useStyles = makeStyles(() => ({
   root: {}
 }));
 
-const UpcomingDetails = ({ className, create, set,...rest }) => {
+const UpcomingDetails = ({ className, create, set, ...rest }) => {
   const classes = useStyles();
   const [values, setValues] = useState(
     {
-      date:"",
-      text:"",
-      link:"",
-      
+      date: "",
+      text: "",
+      link: "",
+
     }
   );
-  
+
   const handleChange = (event) => {
     setValues({
       ...values,
       [event.target.name]: event.target.value
     });
   };
-  
+
 
   return (
     <form
-      onSubmit={()=>create(values)}
+      onSubmit={() => create(values)}
       className={clsx(classes.root, className)}
       {...rest}
     >
@@ -63,14 +63,38 @@ const UpcomingDetails = ({ className, create, set,...rest }) => {
             >
               <TextField
                 fullWidth
-                helperText="Enter the date of the upcoming talk"
-                name="date"
-                type="date"
+                label="Year"
+                helperText="Enter the year of the talk. Ex: 21"
+                name="year"
+                type="text"
                 onChange={handleChange}
                 required
                 variant="outlined"
               />
             </Grid>
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Location"
+                name="location"
+                helperText="Ex: USA"
+                onChange={handleChange}
+                required
+                variant="outlined"
+              />
+            </Grid>
+
+
+
+          </Grid>
+          <Grid
+            container
+            spacing={3}
+          >
             <Grid
               item
               md={6}
@@ -86,14 +110,6 @@ const UpcomingDetails = ({ className, create, set,...rest }) => {
                 variant="outlined"
               />
             </Grid>
-            
-           
-            
-          </Grid>
-          <Grid
-            container
-            spacing={3}
-          >
             <Grid
               item
               md={6}
@@ -117,9 +133,9 @@ const UpcomingDetails = ({ className, create, set,...rest }) => {
           p={2}
         >
           <Button
-            style={{marginRight:10,backgroundColor:"#8B0000",color:'#fff'}}
+            style={{ marginRight: 10, backgroundColor: "#8B0000", color: '#fff' }}
             variant="contained"
-            onClick={()=>set(false)}
+            onClick={() => set(false)}
           >
             Cancel
           </Button>

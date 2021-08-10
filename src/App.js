@@ -25,6 +25,8 @@ import PublicationsList from 'src/views/PublicationsList/ListView';
 import TalksList from 'src/views/TalksList/ListView';
 import ThesesList from 'src/views/ThesesList/ListView';
 import Theses from 'src/views/Theses';
+import MediasList from 'src/views/MediasList/ListView';
+import Medias from 'src/views/Medias';
 import UpcomingsList from 'src/views/UpcomingsList/ListView';
 import Users from 'src/views/UsersList/ListView';
 import Home from 'src/views/Home';
@@ -34,78 +36,95 @@ import Talks from 'src/views/Talks';
 import Team from 'src/views/Team';
 import Projects from 'src/views/Projects';
 import Publications from 'src/views/Publications';
+import Resources from 'src/views/Resources';
+import Contacts from 'src/views/Contacts';
 
 const App = () => {
- 
+
 
   return (
     <Router>
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      <AuthProvider>  
-            <Switch>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <AuthProvider>
+          <Switch>
             <Route
-            exact 
-            path="/" 
-            component={() => <Page Children={Home} />} 
+              exact
+              path="/"
+              component={() => <Page Children={Home} />}
             />
             <Route
-            exact 
-            path="/news" 
-            component={() => <Page Children={News} />} 
+              exact
+              path="/news"
+              component={() => <Page Children={News} />}
             />
             <Route
-            exact 
-            path="/upcomings" 
-            component={() => <Page Children={Upcomings} />} 
+              exact
+              path="/upcomings"
+              component={() => <Page Children={Upcomings} />}
             />
             <Route
-            exact 
-            path="/talks" 
-            component={() => <Page Children={Talks} />} 
+              exact
+              path="/talks"
+              component={() => <Page Children={Talks} />}
             />
             <Route
-            exact 
-            path="/team" 
-            component={() => <Page Children={Team} />} 
+              exact
+              path="/team"
+              component={() => <Page Children={Team} />}
             />
             <Route
-            exact 
-            path="/projects" 
-            component={() => <Page Children={Projects} />} 
+              exact
+              path="/projects"
+              component={() => <Page Children={Projects} />}
             />
             <Route
-            exact 
-            path="/publications" 
-            component={() => <Page Children={Publications} />} 
+              exact
+              path="/publications"
+              component={() => <Page Children={Publications} />}
             />
             <Route
-            exact 
-            path="/theses" 
-            component={() => <Page Children={Theses} />} 
+              exact
+              path="/theses"
+              component={() => <Page Children={Theses} />}
             />
             <Route
-            exact 
-            path="/books" 
-            component={() => <Page Children={Books} />} 
+              exact
+              path="/medias"
+              component={() => <Page Children={Medias} />}
             />
             <Route
-            exact 
-            path="/courses" 
-            component={() => <Page Children={Courses} />} 
+              exact
+              path="/books"
+              component={() => <Page Children={Books} />}
             />
             <Route
-            exact 
-            path="/openings" 
-            component={() => <Page Children={Openings} />} 
+              exact
+              path="/courses"
+              component={() => <Page Children={Courses} />}
             />
-            
+            <Route
+              exact
+              path="/openings"
+              component={() => <Page Children={Openings} />}
+            />
+            <Route
+              exact
+              path="/resources"
+              component={() => <Page Children={Resources} />}
+            />
+            <Route
+              exact
+              path="/contacts"
+              component={() => <Page Children={Contacts} />}
+            />
+
             <UnPrivateRoute
-             exact 
-             path="/admin" 
-             component={() => <Main Children={LoginView} />} 
-             />
-          
+              exact
+              path="/admin"
+              component={() => <Main Children={LoginView} />}
+            />
+
             <PrivateRoute
               exact
               path="/admin/books"
@@ -116,6 +135,11 @@ const App = () => {
               exact
               path="/admin/courses"
               component={() => <Dashboard Children={CoursesList} />}
+            />
+            <PrivateRoute
+              exact
+              path="/admin/medias"
+              component={() => <Dashboard Children={MediasList} />}
             />
 
             <PrivateRoute
@@ -141,7 +165,7 @@ const App = () => {
               path="/admin/projects"
               component={() => <Dashboard Children={ProjectsList} />}
             />
-            
+
             <PrivateRoute
               exact
               path="/admin/publications"
@@ -172,8 +196,8 @@ const App = () => {
               component={() => <Dashboard Children={Users} />}
             />
           </Switch>
-    </AuthProvider>
-    </ThemeProvider>
+        </AuthProvider>
+      </ThemeProvider>
     </Router>
   );
 };

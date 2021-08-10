@@ -15,7 +15,8 @@ import { onError } from "@apollo/link-error";
 const env = process.env.NODE_ENV || "development";
 
 const uploadLink = new createUploadLink({
-  uri:"//192.168.0.15:4000/graphql" 
+  // uri: "//192.168.0.15:4000/graphql"
+  uri: "//api.qubit.ucla.edu/graphql"
 });
 
 
@@ -40,6 +41,9 @@ const errorLink = (dispatch) =>
           dispatch(logout());
         }
         if (message.match(/invalid signature/)) {
+          dispatch(logout());
+        }
+        if (message.match(/You are not authenticated!/)) {
           dispatch(logout());
         }
       });
@@ -68,7 +72,7 @@ const logout = () => {
 };
 
 const reducer = (state, { type, payload }) => {
-  
+
   switch (type) {
     case "LOGIN": {
       const { user, token } = payload;
@@ -98,7 +102,7 @@ const AuthenticatedProvider = ({ children }) => {
   });
 
   useEffect(() => {
-   
+
     localStorage.setItem("auth", JSON.stringify(auth));
   }, [auth]);
 

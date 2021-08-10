@@ -15,7 +15,7 @@ import {
   Divider,
   Avatar
 } from '@material-ui/core';
-
+import Fade from 'react-reveal/Fade';
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    color: '#263238',
     [theme.breakpoints.down("md")]: {
       marginTop: 116,
     },
@@ -32,8 +33,13 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     fontSize: '2.5vw',
     margin: '5vh 0',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    color: '#005fb1',
     [theme.breakpoints.down("sm")]: {
-      fontSize: '8vw',
+      fontSize: '4.5vw',
     },
   },
   members: {
@@ -124,6 +130,16 @@ const useStyles = makeStyles((theme) => ({
       width: '80vw',
 
     },
+  },
+  noContent: {
+    width: '100%',
+    textAlign: 'center',
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontSize: '1vw',
+    [theme.breakpoints.down("sm")]: {
+      fontSize: '3vw',
+    },
+
   }
 
 
@@ -166,42 +182,55 @@ const MembersView = () => {
       title="Team"
       className={classes.root}
     >
-      <Typography className={classes.title} variant="h1">Team</Typography>
+      <Typography className={classes.title} variant="h1">Team
+      <Divider style={{ width: '10%', marginTop: '1%', backgroundColor: '#ffb621' }} />
+      </Typography>
 
       <div className={classes.members}>
         {loading ? "" : <>
           {error ? <>Error loading members</>
             :
+
             <>
-
-              {members.map((itemMembers) => (
-
-                <div className={classes.itemMembers} key={itemMembers.id} >
-                  <Avatar alt={itemMembers.name} src={itemMembers.profile64} className={classes.avatar} />
-                  <Typography className={classes.name} variant="h1">{itemMembers.name}</Typography>
-                  <Typography className={classes.acting} variant="body1">{itemMembers.acting}</Typography>
-                  <Typography className={classes.email} variant="body1">{itemMembers.email}</Typography>
-                  {itemMembers.formation || itemMembers.links || itemMembers.linknames ?
-                    <ItemMenu className={classes.infos} item='More Infos +'>
-                      <div className={classes.menu}>
-                        {itemMembers.formation ?
-                          <span className={classes.formation} ><b>Formation:</b>{marked(itemMembers.formation)}</span>
-                          : ""}
-                        {itemMembers.links && itemMembers.linknames ?
-                          <div className={classes.links}>
-                            Links:
+              {members.length == 0 ?
+                <Fade left>
+                  
+                    <div className={classes.noContent} >
+                      Sorry, there isn't content here yet.
+                  
+                  </div>
+                </Fade>
+                : ""}
+              {
+                members.map((itemMembers) => (
+                  <Fade key={itemMembers.id} left>
+                    <div className={classes.itemMembers}  >
+                      <Avatar alt={itemMembers.name} src={itemMembers.profile64} className={classes.avatar} />
+                      <Typography className={classes.name} variant="h1">{itemMembers.name}</Typography>
+                      <Typography className={classes.acting} variant="body1">{itemMembers.acting}</Typography>
+                      <Typography className={classes.email} variant="body1">{itemMembers.email}</Typography>
+                      {itemMembers.formation || itemMembers.links || itemMembers.linknames ?
+                        <ItemMenu className={classes.infos} item='More Infos +'>
+                          <div className={classes.menu}>
+                            {itemMembers.formation ?
+                              <span className={classes.formation} ><b>Formation:</b>{marked(itemMembers.formation)}</span>
+                              : ""}
+                            {itemMembers.links && itemMembers.linknames ?
+                              <div className={classes.links}>
+                                Links:
             {itemMembers.linkObj.map((item) => (
-                            <a key={item.key} href={item.link}>{item.name}</a>
-                          ))}
+                                <a key={item.key} href={item.link}>{item.name}</a>
+                              ))}
+                              </div>
+                              : ""}
                           </div>
-                          : ""}
-                      </div>
-                    </ItemMenu>
-                    : ""}
+                        </ItemMenu>
+                        : ""}
 
-                </div>
-
-              ))}
+                    </div>
+                  </Fade>
+                ))
+              }
             </>
           }
         </>

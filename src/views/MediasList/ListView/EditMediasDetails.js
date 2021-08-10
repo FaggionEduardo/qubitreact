@@ -20,16 +20,9 @@ const useStyles = makeStyles(() => ({
   root: {}
 }));
 
-const TalkDetails = ({ className, create, set, ...rest }) => {
+const MediaDetails = ({ className, details, edit, set, ...rest }) => {
   const classes = useStyles();
-  const [values, setValues] = useState(
-    {
-      date: "",
-      text: "",
-      link: "",
-
-    }
-  );
+  const [values, setValues] = useState(details);
 
   const handleChange = (event) => {
     setValues({
@@ -41,14 +34,14 @@ const TalkDetails = ({ className, create, set, ...rest }) => {
 
   return (
     <form
-      onSubmit={() => create(values)}
+      onSubmit={() => edit(values)}
       className={clsx(classes.root, className)}
       {...rest}
     >
       <Card>
         <CardHeader
-          subheader="You can register information for a talk."
-          title="Talk"
+          subheader="You can edit the media information."
+          title="Media"
         />
         <Divider />
         <CardContent>
@@ -63,50 +56,12 @@ const TalkDetails = ({ className, create, set, ...rest }) => {
             >
               <TextField
                 fullWidth
-                label="Year"
-                helperText="Enter the year of the talk. Ex: 21"
-                name="year"
-                type="text"
-                onChange={handleChange}
-                required
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Location"
-                name="location"
-                helperText="Ex: USA"
-                onChange={handleChange}
-                required
-                variant="outlined"
-              />
-            </Grid>
-
-
-
-          </Grid>
-          <Grid
-            container
-            spacing={3}
-          >
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Text"
-                name="text"
                 helperText="To style the text use **bold** or _italic_"
+                label="Title"
+                name="title"
                 onChange={handleChange}
                 required
+                value={values.title}
                 variant="outlined"
               />
             </Grid>
@@ -120,10 +75,14 @@ const TalkDetails = ({ className, create, set, ...rest }) => {
                 label="Link"
                 name="link"
                 onChange={handleChange}
-
+                required
+                value={values.link}
                 variant="outlined"
               />
             </Grid>
+
+
+
           </Grid>
         </CardContent>
         <Divider />
@@ -143,8 +102,9 @@ const TalkDetails = ({ className, create, set, ...rest }) => {
             color="primary"
             variant="contained"
             type="submit"
+
           >
-            Register
+            Edit
           </Button>
         </Box>
       </Card>
@@ -154,4 +114,4 @@ const TalkDetails = ({ className, create, set, ...rest }) => {
 
 
 
-export default TalkDetails;
+export default MediaDetails;

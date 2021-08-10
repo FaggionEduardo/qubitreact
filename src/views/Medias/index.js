@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Page from 'src/components/Page';
 import { useMutation, useQuery, gql } from '@apollo/client';
 import marked from "../../utils/marked"
-
 import {
   Box,
   Button,
@@ -38,86 +37,86 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     color: '#005fb1',
     [theme.breakpoints.down("sm")]: {
-      fontSize: '4vw',
+      fontSize: '4.5vw',
     },
   },
-  talks: {
+  medias: {
     width: '80%',
     [theme.breakpoints.down("sm")]: {
       width: '100%',
     },
   },
-  itemTalks: {
+  itemMedias: {
     margin: '4% 0',
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-    fontSize: '1vw',
+    fontSize: '1.5vw',
+    marginLeft: '2%',
+    color: "#005fb1",
+
+
     [theme.breakpoints.down("sm")]: {
-      fontSize: '3vw',
+      fontSize: '4vw',
+      marginLeft: '4%',
     },
   },
+  link: {
+    '&:-webkit-any-link': {
+      color: "#005fb1"
+    },
+    '&:hover': {
+      color: "#ffb621"
+    },
+  }
 
 
 
 }));
-const UpcomingQuery = gql`
-  query UpcomingQuery{
-    upcomings{
+const MediaQuery = gql`
+  query MediaQuery{
+    medias{
         id
-        year
-        location
-        text
+        title
         link
     }
   }
 `;
-const addZeroes = (num, len) => {
-  var numberWithZeroes = String(num);
-  var counter = numberWithZeroes.length;
 
-  while (counter < len) {
-
-    numberWithZeroes = "0" + numberWithZeroes;
-
-    counter++;
-
-  }
-
-  return numberWithZeroes;
-}
-const UpcomingsView = () => {
+const MediasView = () => {
   const classes = useStyles();
-  const { loading, error, data } = useQuery(UpcomingQuery);
+  const { loading, error, data } = useQuery(MediaQuery);
+  const medias = []
+
   return (
 
     <Page
-      title="Upcomings Talks"
+      title="Media attention"
       className={classes.root}
     >
-      <Typography className={classes.title} variant="h1">Upcoming talks and conference presentation
-      <Divider style={{ width: '55%', marginTop: '1%', backgroundColor: '#ffb621' }} />
+      <Typography className={classes.title} variant="h1">Media attention
+      <Divider style={{ width: '10%', marginTop: '1%', backgroundColor: '#ffb621' }} />
       </Typography>
 
-      <div className={classes.talks}>
+      <div className={classes.medias}>
         {loading ? "" : <>
-          {error ? <>Error loading talks</>
+          {error ? <>Error loading medias</>
             :
             <>
               <Divider />
-              {data.upcomings.length == 0 ?
+              {data.medias.length == 0 ?
                 <Fade left>
-                  
-                    <div className={classes.itemTalks} >
+                  <div>
+                    <div className={classes.itemMedias} >
                       Sorry, there isn't content here yet.
-                  
+                  </div>
                   </div>
                 </Fade>
                 : ""}
-              {data.upcomings.map((itemTalks) => (
-                <Fade key={itemTalks.id} left>
-                  <div>
-                    <div className={classes.itemTalks} >
-                      <b>{itemTalks.location + " " + addZeroes(itemTalks.year, 2)}</b>{marked(itemTalks.text)}
-                      {itemTalks.link ? <a href={itemTalks.link}>Link here!</a> : ""}
+              {data.medias.map((itemMedias) => (
+                <Fade key={itemMedias.id} left>
+                  <div >
+                    <div className={classes.itemMedias} >
+
+                      <a className={classes.link} href={itemMedias.link}>{marked(itemMedias.title)}</a>
                     </div>
                     <Divider />
                   </div>
@@ -134,4 +133,4 @@ const UpcomingsView = () => {
   );
 };
 
-export default (UpcomingsView);
+export default (MediasView);

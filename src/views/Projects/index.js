@@ -14,7 +14,7 @@ import {
   Divider,
   Avatar
 } from '@material-ui/core';
-
+import Fade from 'react-reveal/Fade';
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    color: '#263238',
     [theme.breakpoints.down("md")]: {
       marginTop: 116,
     },
@@ -31,6 +32,11 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     fontSize: '2vw',
     margin: '5vh 0',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    color: '#005fb1',
     [theme.breakpoints.down("sm")]: {
       fontSize: '4.5vw',
     },
@@ -159,42 +165,57 @@ const ProjectsView = () => {
       title="Projects"
       className={classes.root}
     >
-      <Typography className={classes.title} variant="h1">Projects</Typography>
-      <div className={classes.projects}>
-        {loading ? "" : <>
-          {error ? <>Error loading projects</>
-            :
-            <>
+      <Typography className={classes.title} variant="h1">Projects
+      <Divider style={{ width: '12%', marginTop: '1%', backgroundColor: '#ffb621' }} />
+      </Typography>
+      <Fade left>
+        <div className={classes.projects}>
+          <Divider />
 
-              {projects.map((itemProjects) => (
-                <div key={itemProjects.id}>
-                  <div className={classes.itemProjects} >
-                    <Typography className={classes.projectTitle} variant="h1">{itemProjects.title}</Typography>
-                    <Divider />
-                    <img className={classes.img} src={itemProjects.image64} alt={itemProjects.imagename} />
-                    <span className={classes.description}>{marked(itemProjects.description)}</span>
-                    {itemProjects.linknames !== "" ?
-                      <div className={classes.divLink}>
-                        Links:
-             {itemProjects.linkObj.map((item) => (
-                        <a key={item.key} className={classes.link} href={item.link}>{item.name}</a>
-                      ))}
-                      </div>
-                      : ""}
-                    <div className={classes.members}>
-                      {itemProjects.members.split(',').map(member => (
-                        <Members key={member} id={member} />
-                      ))}
-                    </div>
+          {loading ? "" : <>
+            {error ? <>Error loading projects</>
+              :
+              <>
+                {projects.length == 0 ?
+                  <Fade left>
+                    <div>
+                      <div className={classes.itemProjects} >
+                        Sorry, there isn't content here yet.
                   </div>
-                </div>
-              ))}
-            </>
+                    </div>
+                  </Fade>
+                  : ""}
+                {projects.map((itemProjects) => (
+                  <Fade key={itemProjects.id} left>
+                    <div>
+                      <div className={classes.itemProjects} >
+                        <Typography className={classes.projectTitle} variant="h1">{itemProjects.title}</Typography>
+                        <img className={classes.img} src={itemProjects.image64} alt={itemProjects.imagename} />
+                        <span className={classes.description}>{marked(itemProjects.description)}</span>
+                        {itemProjects.linknames !== "" ?
+                          <div className={classes.divLink}>
+                            Links:
+             {itemProjects.linkObj.map((item) => (
+                            <a key={item.key} className={classes.link} href={item.link}>{item.name}</a>
+                          ))}
+                          </div>
+                          : ""}
+                        <div className={classes.members}>
+                          {itemProjects.members.split(',').map(member => (
+                            <Members key={member} id={member} />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </Fade>
+                ))}
+              </>
+            }
+          </>
           }
-        </>
-        }
 
-      </div>
+        </div>
+      </Fade>
     </Page>
 
   );

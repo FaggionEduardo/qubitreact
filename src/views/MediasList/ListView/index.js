@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import Page from 'src/components/Page';
 import Toolbar from './Toolbar';
-import TalksDetails from './EditTalksDetails';
-import CreateTalks from './CreateTalksDetails';
+import MediasDetails from './EditMediasDetails';
+import CreateMedias from './CreateMediasDetails';
 import { useMutation, useQuery, gql } from '@apollo/client';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import Modal from '../../../components/ModalIcon';
-import ModalText from '../../../components/ModalText';
-import marked from "../../../utils/marked"
+import ModalText from '../../../components/ModalText'
+import marked from '../../../utils/marked'
 import {
   Avatar,
   Box,
@@ -40,34 +40,30 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const TalksDelete = gql`
-  mutation TalksDelete($id:ID!){
-    deleteTalk(
+const MediasDelete = gql`
+  mutation MediasDelete($id:ID!){
+    deleteMedia(
       id:$id
     )
   }
 `;
-const TalksQuery = gql`
-  query TalksQuery($page:Int!, $limit:Int!){
-    paginateTalks(page:$page, limit:$limit) {
+const MediasQuery = gql`
+  query MediasQuery($page:Int!, $limit:Int!){
+    paginateMedias(page:$page, limit:$limit) {
       docs{
         id
-        year
-        location
-        text
+        title
         link
       }
       total
     }
   }
 `;
-const TalksEdit = gql`
-  mutation TalksEdit($id:ID!, $text:String!, $link:String!, $year:String!, $location:String! ){
-    updateTalk(
+const MediasEdit = gql`
+  mutation MediasEdit($id:ID!, $title:String!, $link:String!){
+    updateMedia(
       id:$id
-      year:$year
-      location:$location
-      text:$text
+      title:$title
       link:$link
   ),{
     id
@@ -75,12 +71,10 @@ const TalksEdit = gql`
   }
   }
 `;
-const TalksCreate = gql`
-  mutation TalksCreate( $text:String!, $link:String!, $year:String!, $location:String!){
-    createTalk(
-      year:$year
-      location:$location
-      text:$text
+const MediasCreate = gql`
+  mutation MediasCreate( $title:String!, $link:String!){
+    createMedia(
+      title:$title
       link:$link
   ),{
     id
@@ -90,36 +84,36 @@ const TalksCreate = gql`
 `;
 
 
-const TalksList = (props) => {
+const MediasList = (props) => {
   const classes = useStyles();
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const [edit, setEdit] = useState(false);
   const [create, setCreate] = useState(false);
-  const { loading, error, data } = useQuery(TalksQuery, {
+  const { loading, error, data } = useQuery(MediasQuery, {
     variables: { page: page, limit: limit },
   });
-  const [mutationDelete] = useMutation(TalksDelete, {
+  const [mutationDelete] = useMutation(MediasDelete, {
 
     refetchQueries: [
       {
-        query: TalksQuery,
+        query: MediasQuery,
         variables: { page: page, limit: limit }
       }
     ]
   });
-  const [mutationEdit] = useMutation(TalksEdit, {
+  const [mutationEdit] = useMutation(MediasEdit, {
     refetchQueries: [
       {
-        query: TalksQuery,
+        query: MediasQuery,
         variables: { page: page, limit: limit }
       }
     ]
   });
-  const [mutationCreate] = useMutation(TalksCreate, {
+  const [mutationCreate] = useMutation(MediasCreate, {
     refetchQueries: [
       {
-        query: TalksQuery,
+        query: MediasQuery,
         variables: { page: page, limit: limit }
       }
     ]
@@ -140,37 +134,23 @@ const TalksList = (props) => {
   const handlePageChange = (event, newPage) => {
     setPage(newPage + 1);
   };
-  const deleteTalk = (id) => {
+  const deleteMedia = (id) => {
     mutationDelete({ variables: { id } })
   };
-  const editTalk = (values) => {
+  const editMedia = (values) => {
 
     mutationEdit({ variables: values })
     setEdit(false)
   };
-  const createTalk = (values) => {
+  const createMedia = (values) => {
     mutationCreate({ variables: values })
     setCreate(false)
   };
-  const addZeroes = (num, len) => {
-    var numberWithZeroes = String(num);
-    var counter = numberWithZeroes.length;
-
-    while (counter < len) {
-
-      numberWithZeroes = "0" + numberWithZeroes;
-
-      counter++;
-
-    }
-
-    return numberWithZeroes;
-  }
 
   return (
     <Page
       className={classes.root}
-      title="Talks"
+      title="Media attention"
     >
       <Container maxWidth={false}>
         {edit == false && create == false ?
@@ -185,13 +165,7 @@ const TalksList = (props) => {
                         <TableHead>
                           <TableRow>
                             <TableCell>
-                              Year
-                      </TableCell>
-                            <TableCell>
-                              Location
-                      </TableCell>
-                            <TableCell>
-                              Text
+                              Title
                       </TableCell>
                             <TableCell>
                               Link
@@ -203,10 +177,10 @@ const TalksList = (props) => {
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {data.paginateTalks.docs.slice(0, limit).map((talk) => (
+                          {data.paginateMedias.docs.slice(0, limit).map((media) => (
                             <TableRow
                               hover
-                              key={talk.id}
+                              key={media.id}
                             >
 
                               <TableCell>
@@ -215,33 +189,13 @@ const TalksList = (props) => {
                                   display="flex"
                                 >
 
-                                  <Typography
-                                    color="textPrimary"
-                                    variant="body1"
-                                  >
-                                    {addZeroes(talk.year, 2)}
-                                  </Typography>
-                                </Box>
-                              </TableCell>
-                              <TableCell>
-                                <Box
-                                  alignItems="center"
-                                  display="flex"
-                                >
 
-                                  <Typography
-                                    color="textPrimary"
-                                    variant="body1"
-                                  >
-                                    {talk.location}
-                                  </Typography>
+                                  <ModalText title="Title" text={marked(media.title)} />
+
                                 </Box>
                               </TableCell>
                               <TableCell>
-                                <ModalText title="Text" text={marked(talk.text)} />
-                              </TableCell>
-                              <TableCell>
-                                <a href={talk.link}>{talk.link}</a>
+                                <a href={media.link}>{media.link}</a>
                               </TableCell>
                               <TableCell>
                                 <Modal
@@ -249,19 +203,19 @@ const TalksList = (props) => {
                                   icon={TrashIcon}
                                 >
                                   <CardHeader
-                                    subheader={'Are you sure you want to delete the talk "' + talk.text + '"?'}
-                                    title="Delete talk"
+                                    subheader={'Are you sure you want to delete the media "' + media.title + '"?'}
+                                    title="Delete media"
                                   />
                                   <Button
                                     variant="contained"
                                     style={{ margin: 10, backgroundColor: "#8B0000", color: '#fff' }}
-                                    onClick={() => deleteTalk(talk.id)}
+                                    onClick={() => deleteMedia(media.id)}
                                   >
                                     Delete
                           </Button>
                                 </Modal>
 
-                                <EditIcon onClick={() => defineEdit(talk)} className={classes.icon} />
+                                <EditIcon onClick={() => defineEdit(media)} className={classes.icon} />
                               </TableCell>
                             </TableRow>
                           ))}
@@ -271,7 +225,7 @@ const TalksList = (props) => {
                   </PerfectScrollbar>
                   <TablePagination
                     component="div"
-                    count={data.paginateTalks.total}
+                    count={data.paginateMedias.total}
                     onChangePage={handlePageChange}
                     onChangeRowsPerPage={handleLimitChange}
                     page={page - 1}
@@ -285,8 +239,8 @@ const TalksList = (props) => {
           </>
           :
           <>
-            {edit !== false ? <TalksDetails set={setEdit} edit={editTalk} details={edit} /> : ''}
-            {create !== false ? <CreateTalks set={setCreate} create={createTalk} /> : ''}
+            {edit !== false ? <MediasDetails set={setEdit} edit={editMedia} details={edit} /> : ''}
+            {create !== false ? <CreateMedias set={setCreate} create={createMedia} /> : ''}
           </>
         }
       </Container>
@@ -294,5 +248,5 @@ const TalksList = (props) => {
   );
 };
 
-export default (TalksList);
+export default (MediasList);
 

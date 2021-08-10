@@ -17,6 +17,7 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from '@material-ui/core';
+import Fade from 'react-reveal/Fade';
 import PlusIcon from '@material-ui/icons/Add';
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    color: '#263238',
     [theme.breakpoints.down("md")]: {
       marginTop: 116,
     },
@@ -34,6 +36,11 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     fontSize: '2vw',
     margin: '5vh 0',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    color: '#005fb1',
     [theme.breakpoints.down("sm")]: {
       fontSize: '4.5vw',
     },
@@ -123,38 +130,53 @@ const PublicationsView = () => {
       title="Publications"
       className={classes.root}
     >
-      <Typography className={classes.title} variant="h1">Publications</Typography>
+      <Typography className={classes.title} variant="h1">Publications
+      <Divider style={{ width: '16%', marginTop: '1%', backgroundColor: '#ffb621' }} />
+      </Typography>
+
       <div className={classes.publications}>
+        <Divider />
         {loading ? "" : <>
           {error ? <>Error loading publications</>
             :
             <>
-
-              {publications.map((itemPublications) => (
-                <div key={itemPublications.id}>
-                  <div className={classes.itemPublications} >
-                    <Accordion className={classes.accordion}>
-                      <AccordionSummary
-                        expandIcon={<PlusIcon />}
-
-                      >
-                        <span className={classes.publicationTitle} >{marked(itemPublications.key + '. ' + itemPublications.title)}</span>
-                      </AccordionSummary>
-                      <AccordionDetails className={classes.details}>
-                        <img className={classes.img} src={itemPublications.image64} alt={itemPublications.imagename} />
-                        <span className={classes.description}>{marked(itemPublications.description)}</span>
-                        {itemPublications.linknames !== "" ?
-                          <div className={classes.divLink}>
-                            Links:
-             {itemPublications.linkObj.map((item) => (
-                            <a key={item.key} className={classes.link} href={item.link}>{item.name}</a>
-                          ))}
-                          </div>
-                          : ""}
-                      </AccordionDetails>
-                    </Accordion>
+              {publications.length == 0 ?
+                <Fade left>
+                  <br />
+                  <div>
+                    <div className={classes.itemPublications} >
+                      Sorry, there isn't content here yet.
                   </div>
-                </div>
+                  </div>
+                </Fade>
+                : ""}
+              {publications.map((itemPublications) => (
+                <Fade key={itemPublications.id} left>
+                  <div>
+                    <div className={classes.itemPublications} >
+                      <Accordion className={classes.accordion}>
+                        <AccordionSummary
+                          expandIcon={<PlusIcon />}
+
+                        >
+                          <span className={classes.publicationTitle} >{marked(itemPublications.key + '. ' + itemPublications.title)}</span>
+                        </AccordionSummary>
+                        <AccordionDetails className={classes.details}>
+                          <img className={classes.img} src={itemPublications.image64} alt={itemPublications.imagename} />
+                          <span className={classes.description}>{marked(itemPublications.description)}</span>
+                          {itemPublications.linknames !== "" ?
+                            <div className={classes.divLink}>
+                              Links:
+             {itemPublications.linkObj.map((item) => (
+                              <a key={item.key} className={classes.link} href={item.link}>{item.name}</a>
+                            ))}
+                            </div>
+                            : ""}
+                        </AccordionDetails>
+                      </Accordion>
+                    </div>
+                  </div>
+                </Fade>
               ))}
             </>
           }
@@ -162,6 +184,7 @@ const PublicationsView = () => {
         }
 
       </div>
+
     </Page>
 
   );
